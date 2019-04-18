@@ -32,20 +32,28 @@ const HackerNews = () => {
     e.preventDefault();
     setUrl(`http://hn.algolia.com/api/v1/search?query=${searchQuery}`);
   };
+  const showLoading = () => (loading ? <h2>Loading...</h2> : '');
+
+  const searchForm = () => (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="test"
+        placeholder="Search News"
+        value={searchQuery}
+        onChange={handleChange}
+      />
+      <button>Search</button>
+    </form>
+  );
+
+  const showNews = () => news.map((n, i) => <p key={i}>{n.title}</p>);
 
   return (
     <div>
       <h2>News</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="test"
-          placeholder="Search News"
-          value={searchQuery}
-          onChange={handleChange}
-        />
-        <button>Search</button>
-      </form>
-      {loading ? 'Loading...' : news.map((n, i) => <p key={i}>{n.title}</p>)}
+      {showLoading()}
+      {searchForm()}
+      {showNews()}
     </div>
   );
 };
